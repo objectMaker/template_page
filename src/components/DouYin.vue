@@ -46,17 +46,30 @@
         开始视频直播
       </div>
       <div class="bottom_nav">
-        <div class="bottom_nav_item" v-for="(item,index) in bottomNavList" :key="index">
+        <div class="bottom_nav_item" :class="index===bottomChoose?'color_white':''" v-for="(item,index) in bottomNavList" :key="index">
           <div>{{item}}</div>
         </div>
+      </div>
+      <div class="introducePage_container" v-if="currentPage===0">
+        <IntroducePage/>
+      </div>
+      <div class="paymentPage_container" v-if="currentPage===1">
+        <PaymentPage/>
       </div>
     </div>
 </template>
 
 <script>
+import IntroducePage from "@/components/IntroducePage";
+import PaymentPage from "@/components/PaymentPage";
 export default {
+  components:{
+    IntroducePage,
+    PaymentPage,
+  },
     data(){
         return {
+          currentPage:1,
           currentIndex:0,
           navList:[
               '视频',
@@ -118,10 +131,13 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .container{
+    position: relative;
+    outline: 1px solid black;
     width: 554px;
     height: 986px;
+    color: white;
     background-color: #000;
     .topDis{
       height: 66px;
@@ -133,7 +149,7 @@ export default {
         display: flex;
         color: #717171;
         width: 244px;
-        font-weight: 600;
+        font-weight: bold;
         justify-content: space-between;
         font-size: 18px;
         .active{
@@ -224,7 +240,8 @@ export default {
         .font{
           margin-top: 7px;
           font-size: 12px;
-          color: #afafaf;
+          //color: #afafaf;
+          color: white;
         }
       }
     }
@@ -243,10 +260,25 @@ export default {
       color: #5f5f5f;
       display: flex;
       font-weight: 600;
-      width: 343px;
+      width: 302px;
       justify-content: space-around;
-      margin-top: 40px;
-      font-size: 21px;
+      margin-top: 48px;
+      margin-left: 20px;
+      font-size: 20px;
+      .color_white{
+        color: white;
+      }
+    }
+    .introducePage_container{
+      position: absolute;
+      top: 272px;
+      height: 714px;
+    }
+    .paymentPage_container{
+      position: absolute;
+      height: 700px;
+      width: 100%;
+      bottom: 0;
     }
   }
 </style>
