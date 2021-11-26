@@ -54,18 +54,21 @@
         <IntroducePage/>
       </div>
       <div class="paymentPage_container" v-if="currentPage===1">
-        <PaymentPage/>
+        <PaymentPage @openPriceDialog="handleTogglePriceDialog(true)"/>
       </div>
+      <PriceDialog v-if="PriceDialogVisible" @closePriceDialog="handleTogglePriceDialog(false)"/>
     </div>
 </template>
 
 <script>
-import IntroducePage from "@/components/IntroducePage";
-import PaymentPage from "@/components/PaymentPage";
+import IntroducePage from "./IntroducePage";
+import PaymentPage from "./PaymentPage";
+import PriceDialog from "./PriceDialog";
 export default {
   components:{
     IntroducePage,
     PaymentPage,
+    PriceDialog,
   },
     data(){
         return {
@@ -126,8 +129,14 @@ export default {
               '开直播',
           ],
           bottomChoose:3,
+          PriceDialogVisible:false,
         }
+    },
+  methods:{
+    handleTogglePriceDialog(boo){
+      this.PriceDialogVisible = boo;
     }
+  }
 }
 </script>
 
